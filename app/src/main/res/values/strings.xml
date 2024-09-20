@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">dricmoy-MyBookWishlist</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="splash_description">Dricmoy-My Book Wishlist Logo</string>
+</resources>
