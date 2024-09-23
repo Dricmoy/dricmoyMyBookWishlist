@@ -18,7 +18,7 @@ import java.util.List;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> implements Filterable {
     private final OnBookClickListener bookClickListener;
-    private final List<Book> books; // Use List for flexibility
+    private List<Book> books; // Use List for flexibility
     private final List<Book> bookListFull; // Full list for filtering
     private final Context context;
     private final OnEditBookClickListener editListener;
@@ -108,6 +108,12 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
                 notifyDataSetChanged(); // Notify adapter of changes
             }
         };
+    }
+
+    public void updateBooks(List<Book> updatedBooks) {
+        this.books.clear();
+        this.books.addAll(updatedBooks);
+        notifyDataSetChanged(); // Notify adapter to refresh the view
     }
 
     public static class BookViewHolder extends RecyclerView.ViewHolder {

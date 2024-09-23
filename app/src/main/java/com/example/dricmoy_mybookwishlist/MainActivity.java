@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements BookAdapter.OnEdi
     private BookAdapter bookAdapter;
     private WishList myWishList;
     private TextView totalCount, readCount;
+    private RecyclerView booklist;
     private Book BookEdit; // Declare this to hold the book being edited
 
     @Override
@@ -30,17 +31,17 @@ public class MainActivity extends AppCompatActivity implements BookAdapter.OnEdi
 
         totalCount = findViewById(R.id.total_count);
         readCount = findViewById(R.id.read_count);
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        booklist = findViewById(R.id.recycler_view);
+        booklist.setLayoutManager(new LinearLayoutManager(this));
 
         myWishList = new WishList("My Favorite Books");
         //setupPresetWishlist();
 
         bookAdapter = new BookAdapter(this, myWishList.getBooks(), this, this::onBookClick);
-        recyclerView.setAdapter(bookAdapter);
+        booklist.setAdapter(bookAdapter);
         updateCounts();
 
-        EditText searchBar = findViewById(R.id.searchBar); // Initialize the EditText\
+        EditText searchBar = findViewById(R.id.searchBar); // Initialize the EditText
         // Add TextWatcher to the searchBar
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -139,19 +140,19 @@ public class MainActivity extends AppCompatActivity implements BookAdapter.OnEdi
         EditText authorInput = dialogView.findViewById(R.id.edit_author);
         EditText genreInput = dialogView.findViewById(R.id.edit_genre);
         EditText yearInput = dialogView.findViewById(R.id.edit_year);
-        Spinner statusSpinner = dialogView.findViewById(R.id.edit_status); // Use Spinner instead
+        Spinner statusSpinner = dialogView.findViewById(R.id.edit_status);
 
-        // Set up the Spinner
+        // Set up Spinner for Read/Unread status
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.read_unread_options, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         statusSpinner.setAdapter(adapter);
 
-        // Populate dialog with book details
+        // Populate dialog with current book details
         titleInput.setText(BookEdit.getTitle());
         authorInput.setText(BookEdit.getAuthor());
         genreInput.setText(BookEdit.getGenre());
-        yearInput.setText(String.valueOf(BookEdit.getPublicationYear()));
+        yearInput.setText(String.valueOf(BookEdit.getPublicationYear())); // Populate with int value
         statusSpinner.setSelection(BookEdit.getStatus() ? 0 : 1); // Set selection based on status
 
         builder.setView(dialogView);
@@ -159,17 +160,34 @@ public class MainActivity extends AppCompatActivity implements BookAdapter.OnEdi
             String title = titleInput.getText().toString().trim();
             String author = authorInput.getText().toString().trim();
             String genre = genreInput.getText().toString().trim();
-            String yearString = yearInput.getText().toString().trim();
-            String statusString = statusSpinner.getSelectedItem().toString(); // Get selected item
+            String yearString = yearInput.getText().toString().trim(); // Get year as string
 
+            // Validate year input
+            if (yearString.isEmpty()) {
+                Toast.makeText(MainActivity.this, "Year cannot be empty", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            int year;
+            try {
+                year = Integer.parseInt(yearString); // Safely parse the year input
+            } catch (NumberFormatException e) {
+                Toast.makeText(MainActivity.this, "Invalid year format", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String statusString = statusSpinner.getSelectedItem().toString(); // Get selected status
+
+            // Validate inputs
             if (validateBookInputs(title, author, genre, yearString, statusString)) {
                 BookEdit.setTitle(title);
                 BookEdit.setAuthor(author);
                 BookEdit.setGenre(genre);
-                BookEdit.setPublicationYear(Integer.parseInt(yearString));
+                BookEdit.setPublicationYear(year); // Set year as integer
                 BookEdit.setStatus(statusString.equalsIgnoreCase("Read")); // Update status
-                bookAdapter.notifyDataSetChanged(); // Update the adapter
-                updateCounts(); // Update counts
+
+                bookAdapter.updateBooks(myWishList.getBooks()); // Update adapter with the updated book list
+                updateCounts(); // Update any counts if necessary
                 dialog.dismiss();
             } else {
                 Toast.makeText(MainActivity.this, "Invalid input. Please check your fields.", Toast.LENGTH_SHORT).show();
@@ -233,16 +251,16 @@ public class MainActivity extends AppCompatActivity implements BookAdapter.OnEdi
         builder.show();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void addBook(Book book) {
-        myWishList.addBook(book);
-        bookAdapter.notifyItemInserted(myWishList.getBooks().size() - 1);
+        myWishList.addBook(book); // Updating the wishlist
+        bookAdapter.updateBooks(myWishList.getBooks()); // Refreshing the adapter
         updateCounts();
     }
 
     public void deleteBook(int position) {
         myWishList.removeBook(myWishList.getBooks().get(position));
-        bookAdapter.notifyItemRemoved(position);
+        bookAdapter.updateBooks(myWishList.getBooks()); // Refreshing the adapter
         updateCounts();
     }
-
 }
