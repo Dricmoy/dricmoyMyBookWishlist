@@ -4,4 +4,24 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="splash_description">Dricmoy-My Book Wishlist Logo</string>
+    <string name="drics_books">Dric\'s Books</string>
+    <string name="welcomeText">Dric\'s Book List</string>
+    <string name="welcomeSubtext">You have no choice but to continue as a guest 😅</string>
+    <string name="Searchbar">find_a_book_in_the_wishlist_by_name</string>
+    <string name="app_logo">App Logo</string>
+    <string name="delete_book">Delete Book</string>
+    <string name="add_book">Add Book</string>
+    <string name="publication_year">Publication Year</string>
+    <string name="genre">Genre</string>
+    <string name="author">Author</string>
+    <string name="title">Title</string>
+    <string name="status_read_unread">Status (Read/Unread)</string>
+    <string name="read_0">Read: 0</string>
+    <string name="total_0">Total: 0</string>
+    <string name="Edit_button_text">✏️</string>
+
+    <string-array name="read_unread_options">
+        <item>Read</item>
+        <item>Unread</item>
+    </string-array>
 </resources>
