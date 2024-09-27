@@ -2,8 +2,6 @@ package com.example.dricmoy_mybookwishlist;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -40,21 +38,6 @@ public class MainActivity extends AppCompatActivity implements BookAdapter.OnEdi
         bookAdapter = new BookAdapter(this, myWishList.getBooks(), this, this::onBookClick);
         booklist.setAdapter(bookAdapter);
         updateCounts();
-
-        EditText searchBar = findViewById(R.id.searchBar); // Initialize the EditText
-        // Add TextWatcher to the searchBar
-        searchBar.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                bookAdapter.getFilter().filter(s); // Call filter method in BookAdapter
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {}
-        });
 
         Button addBookButton = findViewById(R.id.add_book_button);
         Button deleteBookButton = findViewById(R.id.delete_book_button);

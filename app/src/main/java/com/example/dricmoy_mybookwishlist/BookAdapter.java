@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> implements Filterable {
+public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
     private final OnBookClickListener bookClickListener;
     private List<Book> books; // Use List for flexibility
     private final List<Book> bookListFull; // Full list for filtering
@@ -70,44 +70,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     @Override
     public int getItemCount() {
         return books.size();
-    }
-
-    // Implementing the filter method
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                List<Book> filteredList = new ArrayList<>();
-
-                if (constraint == null || constraint.length() == 0) {
-                    filteredList.addAll(bookListFull); // No filter, return full list
-                } else {
-                    String filterPattern = constraint.toString().toLowerCase().trim();
-
-                    for (Book book : bookListFull) {
-                        if (book.getTitle().toLowerCase().contains(filterPattern) ||
-                                book.getAuthor().toLowerCase().contains(filterPattern)) {
-                            filteredList.add(book);
-                        }
-                    }
-                }
-
-                FilterResults results = new FilterResults();
-                results.values = filteredList;
-                return results;
-            }
-
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-                @SuppressWarnings("unchecked") // Suppress warning for unchecked cast
-                List<Book> resultList = (List<Book>) results.values;
-                books.clear();
-                books.addAll(resultList); // Add the filtered list
-                notifyDataSetChanged(); // Notify adapter of changes
-            }
-        };
     }
 
     public void updateBooks(List<Book> updatedBooks) {

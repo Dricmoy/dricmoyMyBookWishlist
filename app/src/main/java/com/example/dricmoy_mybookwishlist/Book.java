@@ -3,8 +3,6 @@ package com.example.dricmoy_mybookwishlist;
 public class Book {
     private String title;
     private String author;
-    private String imageUrl;
-    private String description;
     private String genre; // Genre of the book
     private int publicationYear; // Year of publication
     private boolean status; // true = read, false = not read
@@ -15,17 +13,6 @@ public class Book {
         this.author = author;
         this.genre = genre;
         this.publicationYear = publicationYear;
-        this.status = status;
-        this.imageUrl = "default_image_url"; // Default image URL for a book that I hardcoded
-    }
-
-    // Constructor for detailed book information
-    public Book(String title, String author, String imageUrl, String description, String genre, boolean status) {
-        this.title = title;
-        this.author = author;
-        this.imageUrl = imageUrl;
-        this.description = description;
-        this.genre = genre;
         this.status = status;
     }
 
@@ -54,14 +41,6 @@ public class Book {
         }
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public int getPublicationYear() {
         return publicationYear;
     }
@@ -72,14 +51,6 @@ public class Book {
         } else {
             throw new IllegalArgumentException("Publication year must be a four-digit integer.");
         }
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getGenre() {

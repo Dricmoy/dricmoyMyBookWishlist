@@ -1,10 +1,6 @@
 package com.example.dricmoy_mybookwishlist;
 
-import android.os.Build;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 public class WishList {
     private final String name;
@@ -35,20 +31,5 @@ public class WishList {
     public String getName() {
         return name;
     }
-
-    // Sort books by status (read first)
-    public void sortBooksByStatus() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Collections.sort(books, Comparator.comparing(Book::getStatus)); // Example implementation
-        }
-    }
-
-    // Sort books by title
-    public void sortBooksByTitle() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Collections.sort(books, Comparator.comparing(Book::getTitle)); // Example implementation
-        }
-    }
-
 
 }
