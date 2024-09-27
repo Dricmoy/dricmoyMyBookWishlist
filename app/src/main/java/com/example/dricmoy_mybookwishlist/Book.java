@@ -9,10 +9,10 @@ public class Book {
 
     // Constructor for basic book details
     public Book(String title, String author, String genre, int publicationYear, boolean status) {
-        this.title = title;
-        this.author = author;
+        this.setTitle(title);
+        this.setAuthor(author);
         this.genre = genre;
-        this.publicationYear = publicationYear;
+        this.setPublicationYear(publicationYear);
         this.status = status;
     }
 
@@ -22,10 +22,10 @@ public class Book {
     }
 
     public void setTitle(String title) {
-        if (title.length() <= 50) {
+        if (title.length() <= BookFieldLimits.TITLE_MAX_LENGTH.getLimit()) {
             this.title = title;
         } else {
-            throw new IllegalArgumentException("Title must be 50 characters or fewer.");
+            throw new IllegalArgumentException("Title must be " + BookFieldLimits.TITLE_MAX_LENGTH.getLimit() + " characters or fewer.");
         }
     }
 
@@ -34,10 +34,10 @@ public class Book {
     }
 
     public void setAuthor(String author) {
-        if (author.length() <= 30) {
+        if (author.length() <= BookFieldLimits.AUTHOR_MAX_LENGTH.getLimit()) {
             this.author = author;
         } else {
-            throw new IllegalArgumentException("Author name must be 30 characters or fewer.");
+            throw new IllegalArgumentException("Author name must be " + BookFieldLimits.AUTHOR_MAX_LENGTH.getLimit() + " characters or fewer.");
         }
     }
 
@@ -46,10 +46,10 @@ public class Book {
     }
 
     public void setPublicationYear(int publicationYear) {
-        if (publicationYear >= 1900 && publicationYear <= 2024){
+        if (publicationYear >= BookFieldLimits.PUBLICATION_YEAR_MIN.getLimit() && publicationYear <= BookFieldLimits.PUBLICATION_YEAR_MAX.getLimit()) {
             this.publicationYear = publicationYear;
         } else {
-            throw new IllegalArgumentException("Publication year must be a four-digit integer.");
+            throw new IllegalArgumentException("Publication year must be between " + BookFieldLimits.PUBLICATION_YEAR_MIN.getLimit() + " and " + BookFieldLimits.PUBLICATION_YEAR_MAX.getLimit() + ".");
         }
     }
 

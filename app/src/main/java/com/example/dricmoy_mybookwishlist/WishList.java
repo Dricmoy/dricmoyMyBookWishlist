@@ -2,7 +2,7 @@ package com.example.dricmoy_mybookwishlist;
 
 import java.util.ArrayList;
 
-public class WishList {
+public class WishList implements WishListInterface{
     private final String name;
     private final ArrayList<Book> books;
 

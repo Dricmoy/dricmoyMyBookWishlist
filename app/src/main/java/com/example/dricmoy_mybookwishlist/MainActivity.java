@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements BookAdapter.OnEdi
         booklist.setLayoutManager(new LinearLayoutManager(this));
 
         myWishList = new WishList("My Favorite Books");
-        //setupPresetWishlist();
 
         bookAdapter = new BookAdapter(this, myWishList.getBooks(), this, this::onBookClick);
         booklist.setAdapter(bookAdapter);
@@ -51,11 +50,6 @@ public class MainActivity extends AppCompatActivity implements BookAdapter.OnEdi
             }
         });
     }
-
-    // private void setupPresetWishlist() { // You can keep this method if you need it later
-    //     myWishList.addBook(new Book("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", 1925, false));
-    //     myWishList.addBook(new Book("To Kill a Mockingbird", "Harper Lee", "Fiction", 1960, false));
-    // }
 
     @Override
     public void onEditBookClick(int position) {
