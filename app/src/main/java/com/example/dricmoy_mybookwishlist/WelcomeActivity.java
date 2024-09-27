@@ -14,6 +14,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+/**
+ * WelcomeActivity displays a loading screen with a progress bar and a funny text animation
+ * before transitioning to the main application screen.
+ */
 public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,22 +27,24 @@ public class WelcomeActivity extends AppCompatActivity {
 
         ProgressBar progressBar = findViewById(R.id.progressBar);
         View funnyTextView = findViewById(R.id.funnyTextView);
-        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE); // Show the progress bar during loading
 
+        // Adjust padding of the main view to accommodate system bars (like status bar and navigation bar)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
+        // Delay for 3 seconds before transitioning to the MainActivity
         new Handler().postDelayed(()->{
             progressBar.setVisibility(View.GONE);
             Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            startActivity(intent); // Start the MainActivity
+            finish();  // Finish the WelcomeActivity to remove it from the back stack
         },3000);
 
-        // Animate the funny text
+        // Animate the funny text after a short delay
         new Handler().postDelayed(() -> {
             Animation popOutAnimation = AnimationUtils.loadAnimation(this, R.anim.pop_out);
             funnyTextView.startAnimation(popOutAnimation);

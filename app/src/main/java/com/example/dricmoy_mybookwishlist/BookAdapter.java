@@ -16,7 +16,6 @@ import java.util.List;
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
     private final OnBookClickListener bookClickListener;
     private List<Book> books; // Use List for flexibility
-    private final List<Book> bookListFull; // Full list for filtering
     private final Context context;
     private final OnEditBookClickListener editListener;
 
@@ -33,7 +32,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         this.books = new ArrayList<>(books); // Initialize books
         this.editListener = editListener;
         this.bookClickListener = bookClickListener; // Initialize book click listener
-        this.bookListFull = new ArrayList<>(books); // Create a copy of the original list for filtering
     }
 
     @NonNull

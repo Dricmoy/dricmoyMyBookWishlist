@@ -1,35 +1,37 @@
 package com.example.dricmoy_mybookwishlist;
 
-import java.util.ArrayList;
+import java.util.ArrayList; // Importing ArrayList for managing a dynamic list of books
 
-public class WishList implements WishListInterface{
-    private final String name;
-    private final ArrayList<Book> books;
+/**
+ * WishList represents a collection of books that a user wishes to read.
+ */
+public class WishList implements WishListInterface {
+    private final String name; // The name of the wishlist
+    private final ArrayList<Book> books; // A list to store the books in the wishlist
 
-    // Constructor
+    // Constructor to initialize the wishlist with a name
     public WishList(String name) {
-        this.name = name;
-        this.books = new ArrayList<>();
+        this.name = name; // Set the wishlist name
+        this.books = new ArrayList<>(); // Initialize the books list
     }
 
-    // Add a book to the wishlist
+    // Method to add a book to the wishlist
     public void addBook(Book book) {
-        books.add(book);
+        books.add(book); // Add the book to the books list
     }
 
-    // Remove a book from the wishlist
+    // Method to remove a book from the wishlist
     public void removeBook(Book book) {
-        books.remove(book);
+        books.remove(book); // Remove the book from the books list
     }
 
-    // Get all books
+    // Method to get all books in the wishlist
     public ArrayList<Book> getBooks() {
-        return books;
+        return books; // Return the list of books
     }
 
-    // Get wishlist name
+    // Method to get the name of the wishlist
     public String getName() {
-        return name;
+        return name; // Return the name of the wishlist
     }
-
 }
